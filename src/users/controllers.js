@@ -7,8 +7,7 @@ const signupUser = async (req, res) => {
       email: req.body.email,
       password: req.body.password,
     });
-
-    res.status(201).json({ message: "user added", user });
+    if (user) res.status(201).json({ message: "user added", user });
   } catch (error) {
     res.status(500).json({ message: error.message, error: error });
   }
@@ -23,7 +22,17 @@ const getAllUsers = async (req, res) => {
   }
 };
 
+const login = async (req, res) => {
+  try {
+    user = req.user;
+    res.status(201).json({ message: "login successful", user });
+  } catch (error) {
+    res.status(500).json({ message: error.message, error });
+  }
+};
+
 module.exports = {
   signupUser,
   getAllUsers,
+  login,
 };
